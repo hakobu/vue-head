@@ -192,18 +192,17 @@
     // v3
     if (!Vue.version || Vue.version.match(/[3].(.)+/g)) {
       Vue.mixin({
-        created: function () {
-          var self = this
-          self.$on && self.$on('updateHead', function () {
-            init.call(this, true)
-            util.update()
-          })
-        },
         mounted: function () {
           init.call(this)
         },
         beforeUnmount: function () {
           destroy.call(this)
+        },
+        methods: {
+          updateHead() {
+            init.call(this, true)
+            util.update()
+          }
         }
       })
     }
